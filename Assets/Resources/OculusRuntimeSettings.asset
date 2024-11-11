@@ -9,16 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
+  m_Script: {fileID: 11500000, guid: 3863570e7e6387a40ae4f323d83291e5, type: 3}
   m_Name: OculusRuntimeSettings
-  m_EditorClassIdentifier: Oculus.VR::OVRRuntimeSettings
+  m_EditorClassIdentifier: 
   colorSpace: 7
   requestsVisualFaceTracking: 1
   requestsAudioFaceTracking: 1
-<<<<<<< Updated upstream
-  telemetryProjectGuid: 186d084f-88fa-4315-ad6b-807a16d79caa
-=======
-  telemetryProjectGuid: 897bc404-7307-41bc-a433-01c8703c1dcc
->>>>>>> Stashed changes
+  telemetryProjectGuid: 2902a8ad-7e39-4f61-a3c8-2b94f774342a
   bodyTrackingFidelity: 1
   bodyTrackingJointSet: 0

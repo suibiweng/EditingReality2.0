@@ -16,6 +16,12 @@ public class RealityEditorManager : MonoBehaviour
 
     public Dictionary<string,GameObject> GenCubesDic;
 
+    public Dictionary<string,GameObject> ReConSpotDic;
+
+
+    public GameObject ReConSpot;
+
+
     public SceneSaverTest SceneSaverTest; 
    // public List<GameObject> GenCubes;
    
@@ -32,11 +38,17 @@ public class RealityEditorManager : MonoBehaviour
     {
         osc=FindObjectOfType<OSC>();   
 
-        ServerURL+=":"+downloadPort+"/";
-     //   GenCubes= new List<GameObject>();
+        // ServerURL+=":"+downloadPort+"/";
+     
+     
+     
+     // GenCubes= new List<GameObject>();
         GenCubesDic=new Dictionary<string,GameObject>();
       //  IDs=GenCubes.Count;
      // osc.SetAllMessageHandler(ReciveFromOSC);
+
+     ReConSpotDic = new Dictionary<string,GameObject>();
+
 
         
     }
@@ -69,22 +81,61 @@ public class RealityEditorManager : MonoBehaviour
     void Update()
     {
         //OVRInput.GetLocalControllerPosition(OVRInput.Controller.RTouch);
-        if(OVRInput.GetUp(OVRInput.RawButton.A)){
-            createSpot(RightHand.position);
-        }
-        if(OVRInput.GetUp(OVRInput.RawButton.X)){
-            createSpot(LeftHand.position);
-        }
-        if(Input.GetKeyDown(KeyCode.Space)){
-            createSpot(new Vector3(0,0,0));
-        }
-        if(Input.GetKeyDown(KeyCode.S)){
-            SceneSaverTest.SaveGenerateSpotsToPlayerPrefs();
-        }
-        if(Input.GetKeyDown(KeyCode.L)){
-            SceneSaverTest.LoadGenerateSpotsFromPlayerPrefs();
-        }
+        // if(OVRInput.GetUp(OVRInput.RawButton.A)){
+        //     createSpot(RightHand.position);
+        // }
+        // if(OVRInput.GetUp(OVRInput.RawButton.X)){
+        //     createSpot(LeftHand.position);
+        // }
+        // if(Input.GetKeyDown(KeyCode.Space)){
+        //     createSpot(new Vector3(0,0,0));
+        // }
+        // if(Input.GetKeyDown(KeyCode.S)){
+        //     SceneSaverTest.SaveGenerateSpotsToPlayerPrefs();
+        // }
+        // if(Input.GetKeyDown(KeyCode.L)){
+        //     SceneSaverTest.LoadGenerateSpotsFromPlayerPrefs();
+        // }
     }
+
+
+
+    
+    public void createReconsroctSpot()
+    {
+
+        GameObject gcube = Instantiate(ReConSpot, LeftHand.position, Quaternion.identity); //this might be obsolete trying new options feature
+        // gcube.GetComponent<ReCondtructSpot>().id=IDs;
+
+        string urlid=IDGenerator.GenerateID(); 
+        // gcube.GetComponent<ReConstructSpot>().URLID=urlid;
+        Debug.Log("The new Cube's URLID is: " + urlid);
+        // gcube.GetComponent<DataSync2>().SetURLID(urlid); //setting the network urlid once right after we make the spot. But this dont work
+        Debug.Log("Setting the network urlid to be: " + urlid);
+        ReConSpotDic.Add(urlid,gcube); //think about this: Are we adding the cube to the other players dictionaries? 
+        selectedIDUrl=urlid;  
+   
+    }
+
+
+
+    
+   public void RemoveReConSpot(string urlid){
+       Destroy(ReConSpotDic[urlid].gameObject);
+       GenCubesDic.Remove(urlid);
+     
+    }
+   
+
+
+
+
+
+
+
+
+
+
 
     public string createReconstructionSpot(Vector3 pos,Quaternion rot,Vector3 scale,string vid){
 
