@@ -18198,9 +18198,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2035923065}
   - component: {fileID: 2035923064}
-  - component: {fileID: 2035923063}
-  - component: {fileID: 2035923062}
-  - component: {fileID: 2035923061}
   m_Layer: 0
   m_Name: Screen Capture Texture Manager (1)
   m_TagString: Untagged
@@ -18208,49 +18205,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &2035923061
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2035923060}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 71a155ece80369d4e99bdaf5e59169b5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _occlusionShadersMode: 2
-  _removeHands: 0
-  _cameraRig: {fileID: 1840003857}
---- !u!114 &2035923062
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2035923060}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 243e1dbd2bf84b6408d83f88df3c5ca0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  computeShader: {fileID: 7200000, guid: 4cc5df36ae8ce2b4cae8289de3836f1c, type: 3}
---- !u!114 &2035923063
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2035923060}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4da2cc6f08414be49a8dd29eafdfeaa2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  envDepthTextureProvider: {fileID: 2035923061}
-  normalTexShader: {fileID: 7200000, guid: 094ecfc2d2e1d984c9955562fea46b9d, type: 3}
-  trackingSpace: {fileID: 0}
 --- !u!114 &2035923064
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18283,7 +18237,7 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 325633728}
         m_TargetAssemblyTypeName: Fast3dFunctions, Assembly-CSharp
-        m_MethodName: updateTexture
+        m_MethodName: UpdateTexture
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

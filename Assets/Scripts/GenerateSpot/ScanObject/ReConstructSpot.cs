@@ -25,8 +25,8 @@ public class ReConstructSpot : MonoBehaviour
 
    Coroutine FileCheck;
 
-   string DownloadURL="";
-   string UploadURL="";
+   public string DownloadURL="";
+   public string UploadURL="";
 
     void Start()
     {
@@ -40,7 +40,7 @@ public class ReConstructSpot : MonoBehaviour
 
 
         DownloadURL+=":"+manager.downloadPort+"/";
-        UploadURL+=":"+manager.uploadPort+"/";
+        UploadURL+=":"+manager.uploadPort+"/upload";
 
 
 
@@ -84,7 +84,8 @@ public class ReConstructSpot : MonoBehaviour
 
 
         fast3DFunctions.Capture(UploadURL,URLID+".png");
-      FileCheck= StartCoroutine(CheckURLPeriodically(DownloadURL + URLID + "_construct.zip"));
+        fast3DFunctions.UploadMask(UploadURL,URLID+".png","MaskTest");         
+      //FileCheck= StartCoroutine(CheckURLPeriodically(DownloadURL + URLID + "_construct.zip"));
 
 
     }

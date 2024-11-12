@@ -16287,6 +16287,8 @@ MonoBehaviour:
   fast3DFunctions: {fileID: 0}
   URLID: 
   serverURL: 
+  DownloadURL: 
+  UploadURL: 
   checkInterval: 5
 --- !u!1 &7509206734556688977
 GameObject:

@@ -13,7 +13,7 @@ public class Fast3dFunctions : MonoBehaviour
     void Start() {
         displayCaptureManager= FindAnyObjectByType<DisplayCaptureManager>();
 
-
+StartCapture();
 
 
 
@@ -60,16 +60,16 @@ public class Fast3dFunctions : MonoBehaviour
             return;
         }
 
-        StartCoroutine(UploadPNG(streamingTexture, url, filename));
+        StartCoroutine(UploadPNG(streamingTexture, url, filename,""));
     }
 
     // Overloaded Capture function to handle RenderTexture input
-    public void UploadMask(RenderTexture renderTexture, string url, string filename, string prompt)
+    public void UploadMask(string url, string filename, string prompt)
     {
-        Texture2D texture2D = ConvertRenderTextureToTexture2D(renderTexture);
-        StartCoroutine(UploadPNG(texture2D, url, filename));
+        Texture2D texture2D = ConvertRenderTextureToTexture2D(Mask);
+        StartCoroutine(UploadPNG(texture2D, url, filename, prompt));
         Destroy(texture2D); // Clean up after upload
-    }
+    }   
 
     // Converts RenderTexture to Texture2D
     private Texture2D ConvertRenderTextureToTexture2D(RenderTexture renderTexture)
@@ -83,16 +83,17 @@ public class Fast3dFunctions : MonoBehaviour
     }
 
     // Upload the texture as PNG to the specified URL with a custom filename
-    private IEnumerator UploadPNG(Texture2D texture, string url, string filename)
+ public IEnumerator UploadPNG(Texture2D texture, string url, string filename, string prompt)
     {
         byte[] pngData = texture.EncodeToPNG();
         if (pngData != null)
         {
-            UnityWebRequest request = new UnityWebRequest(url, "POST");
-            request.uploadHandler = new UploadHandlerRaw(pngData);
-            request.downloadHandler = new DownloadHandlerBuffer();
-            request.SetRequestHeader("Content-Type", "image/png");
-            request.SetRequestHeader("Filename", filename); // Custom header for filename
+            // Create a form to hold the file and prompt data
+            WWWForm form = new WWWForm();
+            form.AddBinaryData("file", pngData, filename, "image/png");
+            form.AddField("prompt", prompt);
+
+            UnityWebRequest request = UnityWebRequest.Post(url, form);
 
             yield return request.SendWebRequest();
 
