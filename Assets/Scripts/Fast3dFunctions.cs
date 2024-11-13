@@ -2,24 +2,76 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.Networking;
 using Anaglyph.DisplayCapture;
+using System;
 
 public class Fast3dFunctions : MonoBehaviour
 {
 
     public Camera MaskCamera;
+
+    public Camera CaptureCamera;
+    private int originalCullingMask;
+    private bool isRenderingNothing = false; //
+
+
     public static Texture2D streamingTexture;
-    public RenderTexture Mask;
+    public RenderTexture Mask,Depth;
 
     public DisplayCaptureManager displayCaptureManager;
 
     void Start() {
         displayCaptureManager= FindAnyObjectByType<DisplayCaptureManager>();
 
-StartCapture();
+        StartCapture();
 
 
 
     }
+
+
+void InitCameraMask(){
+
+           if (CaptureCamera == null)
+        {
+           // CaptureCamera = GetComponent<Camera>(); // Attempt to auto-assign
+        }
+
+        if (CaptureCamera != null)
+        {
+            // Store the original culling mask of the camera
+            originalCullingMask = CaptureCamera.cullingMask;
+        }
+        else
+        {
+            Debug.LogError("No camera assigned to CameraCullingSwitcher!");
+        }
+
+
+
+
+}
+
+
+    public void ToggleCullingMask()
+    {
+        if (CaptureCamera == null) return;
+
+        if (isRenderingNothing)
+        {
+            // Restore the original culling mask
+            CaptureCamera.cullingMask = originalCullingMask;
+        }
+        else
+        {
+            // Set the culling mask to Nothing
+            CaptureCamera.cullingMask = 0;
+        }
+
+        // Toggle the state
+        isRenderingNothing = !isRenderingNothing;
+    }
+
+
 
     void Update() {}
 
@@ -62,16 +114,26 @@ StartCapture();
             return;
         }
 
-        StartCoroutine(UploadPNG(streamingTexture, url, filename,"",false,0,objPosition,false));
+        StartCoroutine(UploadPNG(streamingTexture, url, filename,"",false,0,objPosition,false,"RGB"));
     }
 
     // Overloaded Capture function to handle RenderTexture input
     public void UploadMask(string url, string filename, string prompt,Vector2 objPosition)
     {
         Texture2D texture2D = ConvertRenderTextureToTexture2D(Mask);
-        StartCoroutine(UploadPNG(texture2D, url, filename, prompt,true,40,objPosition,true));
+        StartCoroutine(UploadPNG(texture2D, url, filename, prompt,true,40,objPosition,true,"MASK"));
         Destroy(texture2D); // Clean up after upload
     }   
+
+
+
+        public void UploadDepthMap(string url, string filename,Vector2 objPosition)
+    {
+        Texture2D texture2D = ConvertRenderTextureToTexture2D(Depth);
+        StartCoroutine(UploadPNG(texture2D, url, filename, "",true,0,objPosition,true,"Depth"));
+        Destroy(texture2D); // Clean up after upload
+    }   
+
 
     // Converts RenderTexture to Texture2D
     private Texture2D ConvertRenderTextureToTexture2D(RenderTexture renderTexture)
@@ -85,7 +147,7 @@ StartCapture();
     }
 
     // Upload the texture as PNG to the specified URL with a custom filename
-public IEnumerator UploadPNG(Texture2D texture, string url, string filename, string prompt, bool flipY, int xOffset, Vector2 objectPosition, bool debugDraw)
+public IEnumerator UploadPNG(Texture2D texture, string url, string filename, string prompt, bool flipY, int xOffset, Vector2 objectPosition, bool debugDraw, string type)
 {
     byte[] pngData = texture.EncodeToPNG();
     if (pngData != null)
@@ -97,6 +159,7 @@ public IEnumerator UploadPNG(Texture2D texture, string url, string filename, str
         form.AddField("xOffset", xOffset.ToString()); 
         form.AddField("objectPosition", $"({(int)objectPosition.x},{(int)objectPosition.y})"); // Send as (x,y)
         form.AddField("debugDraw", debugDraw ? "true" : "false"); 
+         form.AddField("type", type);
 
         UnityWebRequest request = UnityWebRequest.Post(url, form);
         yield return request.SendWebRequest();

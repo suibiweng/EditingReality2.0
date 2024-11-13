@@ -30,6 +30,8 @@ public class RealityEditorManager : MonoBehaviour
     TextMeshPro debugText;
 
     public Transform Cursor;
+
+    public string VoiceToPrompt;
     
     public GameObject sculptingMenu,scuptingBrush;
     public OSC osc;
@@ -65,6 +67,11 @@ public class RealityEditorManager : MonoBehaviour
         //selectedID=id;
         selectedIDUrl=IDurl; 
     }
+
+
+
+
+
 
     public void turnSculptingMenu(bool on){
 
@@ -244,8 +251,9 @@ public class RealityEditorManager : MonoBehaviour
     
     public void setPrompt(string txt)
     {
+        VoiceToPrompt=txt;
         //GenCubes[selectedID].GetComponent<GenerateSpot>().Prompt=txt;
-        GenCubesDic[selectedIDUrl].GetComponent<GenerateSpot>().Prompt=txt;
+       // GenCubesDic[selectedIDUrl].GetComponent<GenerateSpot>().Prompt=txt;
         
     }
     

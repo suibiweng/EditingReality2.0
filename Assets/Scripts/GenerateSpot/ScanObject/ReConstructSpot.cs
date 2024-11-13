@@ -4,11 +4,17 @@ using UnityEngine;
 using RealityEditor;
 using UnityEngine.Networking;
 using System;
+using TMPro;
+using UnityEngine.UI;
 
 
 public class ReConstructSpot : MonoBehaviour
 {
     public RealityEditorManager manager;
+
+    public TMP_Text promptText;
+
+    public string prompt;
 
 
     public GameObject Target;
@@ -71,9 +77,22 @@ public class ReConstructSpot : MonoBehaviour
 
 
         }
+        prompt= manager.VoiceToPrompt;
 
         
         
+
+
+
+
+    }
+
+
+
+    public void setVoiceInput(){
+
+        promptText.text =manager.VoiceToPrompt;
+
 
 
 
