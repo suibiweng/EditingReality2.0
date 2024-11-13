@@ -80,11 +80,35 @@ public class ReConstructSpot : MonoBehaviour
 
     }
 
+Vector2 ObjectScreenPosition()
+{
+    // Convert this GameObject's position to 2D screen coordinates
+    Vector3 screenPosition = fast3DFunctions.MaskCamera.WorldToScreenPoint(transform.position);
+
+    // Check if the object is in front of the camera
+    if (screenPosition.z > 0)
+    {
+        Vector2 screenPosition2D = new Vector2(screenPosition.x, screenPosition.y);
+        Debug.Log("Screen Position (2D): " + screenPosition2D);
+        return screenPosition2D;
+    }
+    else
+    {
+        Debug.Log("Object is behind the camera.");
+        return Vector2.zero; // Or any value you choose to represent an invalid position
+    }
+}
+
+
+
+
+
+
     public void StartGeneration(){
 
 
-        fast3DFunctions.Capture(UploadURL,URLID+".png");
-        fast3DFunctions.UploadMask(UploadURL,URLID+".png","MaskTest");         
+        fast3DFunctions.Capture(UploadURL,URLID+".png",ObjectScreenPosition());
+        fast3DFunctions.UploadMask(UploadURL,URLID+"_Mask.png","MaskTest",ObjectScreenPosition());         
       //FileCheck= StartCoroutine(CheckURLPeriodically(DownloadURL + URLID + "_construct.zip"));
 
 

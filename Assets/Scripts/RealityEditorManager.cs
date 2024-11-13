@@ -87,9 +87,9 @@ public class RealityEditorManager : MonoBehaviour
         // if(OVRInput.GetUp(OVRInput.RawButton.X)){
         //     createSpot(LeftHand.position);
         // }
-        // if(Input.GetKeyDown(KeyCode.Space)){
-        //     createSpot(new Vector3(0,0,0));
-        // }
+        if(Input.GetKeyDown(KeyCode.Space)){
+                createReconsroctSpot();
+        }
         // if(Input.GetKeyDown(KeyCode.S)){
         //     SceneSaverTest.SaveGenerateSpotsToPlayerPrefs();
         // }
@@ -108,7 +108,7 @@ public class RealityEditorManager : MonoBehaviour
         // gcube.GetComponent<ReCondtructSpot>().id=IDs;
 
         string urlid=IDGenerator.GenerateID(); 
-        // gcube.GetComponent<ReConstructSpot>().URLID=urlid;
+        gcube.GetComponent<ReConstructSpot>().URLID=urlid;
         Debug.Log("The new Cube's URLID is: " + urlid);
         // gcube.GetComponent<DataSync2>().SetURLID(urlid); //setting the network urlid once right after we make the spot. But this dont work
         Debug.Log("Setting the network urlid to be: " + urlid);

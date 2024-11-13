@@ -3414,7 +3414,7 @@ MonoBehaviour:
   PlayerCamera: {fileID: 1600638231}
   uploadPort: 5000
   downloadPort: 8000
-  ServerURL: http://10.0.0.123
+  ServerURL: http://192.168.0.139
   ReConSpot: {fileID: 7490433459993616577, guid: 9daf14e4c1dbec94b97c12973356ba01, type: 3}
   SceneSaverTest: {fileID: 0}
   selectedIDUrl: 
@@ -3449,6 +3449,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d6dbfa25a421454e89b73244250a664, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MaskCamera: {fileID: 2031538285}
   Mask: {fileID: 8400000, guid: e8b2e8ef18cb38744a9694816d44bb31, type: 2}
   displayCaptureManager: {fileID: 2035923064}
 --- !u!114 &325633729
@@ -15344,11 +15345,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8994061789686754925, guid: 9daf14e4c1dbec94b97c12973356ba01, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8994061789686754925, guid: 9daf14e4c1dbec94b97c12973356ba01, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 0.499
       objectReference: {fileID: 0}
     - target: {fileID: 8994061789686754925, guid: 9daf14e4c1dbec94b97c12973356ba01, type: 3}
       propertyPath: m_LocalRotation.w
@@ -18116,7 +18117,7 @@ GameObject:
   - component: {fileID: 2031538284}
   - component: {fileID: 2031538285}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: MaskCamera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -18130,13 +18131,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2031538283}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -1, w: 0}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1600638231}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -180}
 --- !u!20 &2031538285
 Camera:
   m_ObjectHideFlags: 0
@@ -18170,7 +18171,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 60
+  field of view: 80
   orthographic: 0
   orthographic size: 5
   m_Depth: 0
