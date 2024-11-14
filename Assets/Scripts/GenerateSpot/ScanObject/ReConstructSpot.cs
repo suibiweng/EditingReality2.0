@@ -132,7 +132,7 @@ bool Capturing=false;
 
         // fast3DFunctions.Capture(UploadURL,URLID+".png",ObjectScreenPosition(),URLID);
         // fast3DFunctions.UploadMask(UploadURL,URLID+"_Mask.png","MaskTest",ObjectScreenPosition(),URLID);         
-      //FileCheck= StartCoroutine(CheckURLPeriodically(DownloadURL + URLID + "_construct.zip"));
+      //FileCheck= StartCoroutine(CheckURLPeriodically(DownloadURL + URLID + "_reconstruct.zip"));
 
 
     
@@ -150,6 +150,9 @@ bool Capturing=false;
         fast3DFunctions.UploadMask(UploadURL,URLID+"_Mask.png","MaskTest",ObjectScreenPosition(),URLID);   
         yield return new WaitForSeconds(0.3f);
         fast3DFunctions.ToggleCullingMask();
+        if(FileCheck==null)
+            FileCheck= StartCoroutine(CheckURLPeriodically(DownloadURL + URLID + "_reconstruct.zip"));
+
 
         Capturing=false;
 
@@ -230,6 +233,7 @@ bool Capturing=false;
 
 
             StopCoroutine(FileCheck);
+            FileCheck=null;
 
             downloadModel(url, Target);
 
