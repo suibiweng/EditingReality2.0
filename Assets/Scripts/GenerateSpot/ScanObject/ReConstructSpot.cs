@@ -6,6 +6,7 @@ using UnityEngine.Networking;
 using System;
 using TMPro;
 using UnityEngine.UI;
+using DimBoxes;
 
 
 public class ReConstructSpot : MonoBehaviour
@@ -33,6 +34,8 @@ public class ReConstructSpot : MonoBehaviour
 
    public string DownloadURL="";
    public string UploadURL="";
+
+   public BoundBox boundBox;
 
     void Start()
     {
@@ -121,19 +124,44 @@ Vector2 ObjectScreenPosition()
 
 
 
-
+bool Capturing=false;
 
     public void StartGeneration(){
+        if(!Capturing)
+            StartCoroutine(CaptureRouting());
 
-
-        fast3DFunctions.Capture(UploadURL,URLID+".png",ObjectScreenPosition());
-        fast3DFunctions.UploadMask(UploadURL,URLID+"_Mask.png","MaskTest",ObjectScreenPosition());         
+        // fast3DFunctions.Capture(UploadURL,URLID+".png",ObjectScreenPosition(),URLID);
+        // fast3DFunctions.UploadMask(UploadURL,URLID+"_Mask.png","MaskTest",ObjectScreenPosition(),URLID);         
       //FileCheck= StartCoroutine(CheckURLPeriodically(DownloadURL + URLID + "_construct.zip"));
 
 
+    
+    
+    
     }
-    public void Delete(){
 
+
+    IEnumerator CaptureRouting(){
+        Capturing=true;
+
+        fast3DFunctions.ToggleCullingMask();
+        yield return new WaitForSeconds(0.3f);
+        fast3DFunctions.Capture(UploadURL,URLID+".png",ObjectScreenPosition(),URLID);
+        fast3DFunctions.UploadMask(UploadURL,URLID+"_Mask.png","MaskTest",ObjectScreenPosition(),URLID);   
+        yield return new WaitForSeconds(0.3f);
+        fast3DFunctions.ToggleCullingMask();
+
+        Capturing=false;
+
+
+
+
+    }
+
+
+
+
+    public void Delete(){
 
         manager.RemoveReConSpot(URLID);
 

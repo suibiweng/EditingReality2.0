@@ -24,6 +24,8 @@ public class Fast3dFunctions : MonoBehaviour
 
         StartCapture();
 
+         InitCameraMask();
+
 
 
     }
@@ -73,7 +75,15 @@ void InitCameraMask(){
 
 
 
-    void Update() {}
+    void Update() {
+              if(OVRInput.GetUp(OVRInput.RawButton.A)){
+                 ToggleCullingMask();
+          
+        }
+
+
+
+    }
 
 
 
@@ -106,7 +116,7 @@ void InitCameraMask(){
     }
 
     // Capture and upload the current streaming texture with a custom filename
-    public void Capture(string url, string filename,Vector2 objPosition)
+    public void Capture(string url, string filename,Vector2 objPosition,string urlid)
     {
         if (streamingTexture == null)
         {
@@ -114,23 +124,23 @@ void InitCameraMask(){
             return;
         }
 
-        StartCoroutine(UploadPNG(streamingTexture, url, filename,"",false,0,objPosition,false,"RGB"));
+        StartCoroutine(UploadPNG(streamingTexture, url, filename,"",false,0,objPosition,false,"RGB",urlid));
     }
 
     // Overloaded Capture function to handle RenderTexture input
-    public void UploadMask(string url, string filename, string prompt,Vector2 objPosition)
+    public void UploadMask(string url, string filename, string prompt,Vector2 objPosition,string urlid)
     {
         Texture2D texture2D = ConvertRenderTextureToTexture2D(Mask);
-        StartCoroutine(UploadPNG(texture2D, url, filename, prompt,true,40,objPosition,true,"MASK"));
+        StartCoroutine(UploadPNG(texture2D, url, filename, prompt,true,40,objPosition,true,"MASK",urlid));
         Destroy(texture2D); // Clean up after upload
     }   
 
 
 
-        public void UploadDepthMap(string url, string filename,Vector2 objPosition)
+        public void UploadDepthMap(string url, string filename,Vector2 objPosition,string urlid)
     {
         Texture2D texture2D = ConvertRenderTextureToTexture2D(Depth);
-        StartCoroutine(UploadPNG(texture2D, url, filename, "",true,0,objPosition,true,"Depth"));
+        StartCoroutine(UploadPNG(texture2D, url, filename, "",true,0,objPosition,true,"Depth",urlid));
         Destroy(texture2D); // Clean up after upload
     }   
 
@@ -147,7 +157,7 @@ void InitCameraMask(){
     }
 
     // Upload the texture as PNG to the specified URL with a custom filename
-public IEnumerator UploadPNG(Texture2D texture, string url, string filename, string prompt, bool flipY, int xOffset, Vector2 objectPosition, bool debugDraw, string type)
+public IEnumerator UploadPNG(Texture2D texture, string url, string filename, string prompt, bool flipY, int xOffset, Vector2 objectPosition, bool debugDraw, string type,string urlid)
 {
     byte[] pngData = texture.EncodeToPNG();
     if (pngData != null)
@@ -159,7 +169,8 @@ public IEnumerator UploadPNG(Texture2D texture, string url, string filename, str
         form.AddField("xOffset", xOffset.ToString()); 
         form.AddField("objectPosition", $"({(int)objectPosition.x},{(int)objectPosition.y})"); // Send as (x,y)
         form.AddField("debugDraw", debugDraw ? "true" : "false"); 
-         form.AddField("type", type);
+        form.AddField("type", type);
+        form.AddField("URLID",urlid);
 
         UnityWebRequest request = UnityWebRequest.Post(url, form);
         yield return request.SendWebRequest();
