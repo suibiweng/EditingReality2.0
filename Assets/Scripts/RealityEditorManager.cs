@@ -56,16 +56,26 @@ public class RealityEditorManager : MonoBehaviour
     }
 
 
-    public void updateSelected(int id,string IDurl)
+    public void updateSelected(string IDurl)
     {
-        Debug.Log("Using a dictionary in The manager, The key you are looking for is: " + IDurl); 
-        GenCubesDic[selectedIDUrl].GetComponent<GenerateSpot>().isselsected=false;
-        GenCubesDic[selectedIDUrl].GetComponent<RealtimeTransform>().ClearOwnership(); 
-        GenCubesDic[IDurl].GetComponent<GenerateSpot>().isselsected=true;
-        GenCubesDic[IDurl].GetComponent<RealtimeView>().RequestOwnershipOfSelfAndChildren();
-        GenCubesDic[IDurl].GetComponent<RealtimeTransform>().RequestOwnership();
+
+    if(IDurl !=  selectedIDUrl){
+           ReConSpotDic[selectedIDUrl].GetComponent<GenerateSpot>().isselsected=false;
+
+          selectedIDUrl=IDurl; 
+
+    }
+     
+
+        // Debug.Log("Using a dictionary in The manager, The key you are looking for is: " + IDurl); 
+        // GenCubesDic[selectedIDUrl].GetComponent<GenerateSpot>().isselsected=false;
+        // GenCubesDic[selectedIDUrl].GetComponent<RealtimeTransform>().ClearOwnership(); 
+        // GenCubesDic[IDurl].GetComponent<GenerateSpot>().isselsected=true;
+        // GenCubesDic[IDurl].GetComponent<RealtimeView>().RequestOwnershipOfSelfAndChildren();
+        // GenCubesDic[IDurl].GetComponent<RealtimeTransform>().RequestOwnership();
         //selectedID=id;
-        selectedIDUrl=IDurl; 
+
+        
     }
 
 
@@ -116,6 +126,7 @@ public class RealityEditorManager : MonoBehaviour
 
         string urlid=IDGenerator.GenerateID(); 
         gcube.GetComponent<ReConstructSpot>().URLID=urlid;
+        gcube.GetComponent<ReConstructSpot>().isselsected=true;
         Debug.Log("The new Cube's URLID is: " + urlid);
         // gcube.GetComponent<DataSync2>().SetURLID(urlid); //setting the network urlid once right after we make the spot. But this dont work
         Debug.Log("Setting the network urlid to be: " + urlid);

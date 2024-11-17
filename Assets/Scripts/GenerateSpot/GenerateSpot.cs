@@ -338,7 +338,7 @@ public class GenerateSpot : MonoBehaviour
     public void OnSelect()
     {
 
-        manager.updateSelected(id, URLID);
+        manager.updateSelected( URLID);
         isselsected = true;
         if (SpotType != GenerateType.None)
         {
@@ -352,7 +352,7 @@ public class GenerateSpot : MonoBehaviour
     
     public void Grab(OVRInput.Controller grabHand)
     {
-        manager.updateSelected(id, URLID);
+        manager.updateSelected( URLID);
         isselsected = true;
         Debug.Log("should be requesting the transform and view in grab");
         //URLIDText.text = "should be requesting the transform and view in grab";

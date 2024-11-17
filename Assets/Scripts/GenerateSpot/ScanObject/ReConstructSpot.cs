@@ -7,7 +7,7 @@ using System;
 using TMPro;
 using UnityEngine.UI;
 using DimBoxes;
-
+using Oculus.Interaction;
 
 public class ReConstructSpot : MonoBehaviour
 {
@@ -36,31 +36,27 @@ public class ReConstructSpot : MonoBehaviour
    public string UploadURL="";
 
    public BoundBox boundBox;
+   public bool isselsected=false;
+  public Grabbable _grabbable;
+
+   
 
     void Start()
     {
         manager = FindObjectOfType<RealityEditorManager>();
         modelDownloader = FindObjectOfType<ModelDownloader>();
         fast3DFunctions= FindObjectOfType<Fast3dFunctions>();
-
         DownloadURL=manager.ServerURL;
         UploadURL=manager.ServerURL;
-
-
-
         DownloadURL+=":"+manager.downloadPort+"/";
         UploadURL+=":"+manager.uploadPort+"/upload";
-
-
-
       //  ServerURL+=":"+downloadPort+"/";
-  
-
-
-
        // fast3DFunctions.StartCapture();
+//    _grabbable = GetComponent<Grabbable>();
+  //_grabbable.WhenPointerEventRaised += HandlePointerEventRaised;
 
 
+  
 
 
         
@@ -70,16 +66,21 @@ public class ReConstructSpot : MonoBehaviour
     void Update()
     {
 
+        if(isselsected){
+
         if(OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger)){
 
             StartGeneration();
 
-
-
-
+        }
 
 
         }
+
+    
+
+
+
         prompt= manager.VoiceToPrompt;
 
         
@@ -101,6 +102,42 @@ public class ReConstructSpot : MonoBehaviour
 
 
     }
+
+
+    private void HandlePointerEventRaised(PointerEvent evt)
+    {
+        switch (evt.Type)
+        {
+            case PointerEventType.Select:
+                OnSelect();
+                
+                break;
+            case PointerEventType.Unselect:
+
+            // PreviewWindow.gameObject.SetActive(false);
+             Release();
+
+                break;
+        }
+    }
+
+
+        public void OnSelect()
+    {
+
+        manager.updateSelected( URLID);
+        isselsected = true;
+       
+
+    }
+
+    public void   Release(){
+
+
+    }
+
+
+    
 
 Vector2 ObjectScreenPosition()
 {

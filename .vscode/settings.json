@@ -51,5 +51,5 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "EditingReality2.0.sln"
+    "dotnet.defaultSolution": "RealityEditng2.0.sln"
 }
