@@ -59,12 +59,12 @@ public class RealityEditorManager : MonoBehaviour
     public void updateSelected(string IDurl)
     {
 
-    if(IDurl !=  selectedIDUrl){
-           ReConSpotDic[selectedIDUrl].GetComponent<GenerateSpot>().isselsected=false;
+    
+           ReConSpotDic[selectedIDUrl].GetComponent<ReConstructSpot>().isselsected=false;
 
           selectedIDUrl=IDurl; 
 
-    }
+    
      
 
         // Debug.Log("Using a dictionary in The manager, The key you are looking for is: " + IDurl); 

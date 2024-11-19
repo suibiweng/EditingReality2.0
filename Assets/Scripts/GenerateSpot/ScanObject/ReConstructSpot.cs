@@ -39,6 +39,10 @@ public class ReConstructSpot : MonoBehaviour
    public bool isselsected=false;
   public Grabbable _grabbable;
 
+  public Toggle debugShow;
+
+  public VoiceLabel voiceLabel;
+
    
 
     void Start()
@@ -53,7 +57,7 @@ public class ReConstructSpot : MonoBehaviour
       //  ServerURL+=":"+downloadPort+"/";
        // fast3DFunctions.StartCapture();
 //    _grabbable = GetComponent<Grabbable>();
-  //_grabbable.WhenPointerEventRaised += HandlePointerEventRaised;
+        _grabbable.WhenPointerEventRaised += HandlePointerEventRaised;
 
 
   
@@ -65,6 +69,8 @@ public class ReConstructSpot : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        debugShow.isOn = isselsected;
 
         if(isselsected){
 
@@ -81,7 +87,7 @@ public class ReConstructSpot : MonoBehaviour
 
 
 
-        prompt= manager.VoiceToPrompt;
+       // prompt= manager.VoiceToPrompt;
 
         
         
@@ -95,7 +101,8 @@ public class ReConstructSpot : MonoBehaviour
 
     public void setVoiceInput(){
 
-        promptText.text =manager.VoiceToPrompt;
+        prompt= voiceLabel.Label.text;
+        
 
 
 

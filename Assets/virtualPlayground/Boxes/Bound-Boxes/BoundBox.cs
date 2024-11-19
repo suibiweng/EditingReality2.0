@@ -33,7 +33,7 @@ namespace DimBoxes
         [HideInInspector]
         public Object linePrefab;
         [HideInInspector]
-        [Range(0.005f, 0.25f)] public float lineWidth = 0.03f;
+         public float lineWidth = 0.03f;
         [HideInInspector]
         public Color lineColor = Color.red;
         [HideInInspector]
