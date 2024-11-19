@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.Networking;
 using Anaglyph.DisplayCapture;
 using System;
+using UnityEngine.UI;
 
 public class Fast3dFunctions : MonoBehaviour
 {
@@ -12,6 +13,8 @@ public class Fast3dFunctions : MonoBehaviour
     public Camera CaptureCamera;
     private int originalCullingMask;
     private bool isRenderingNothing = false; //
+
+    public RawImage DepthTextureIMG;
 
 
     public static Texture2D streamingTexture;
@@ -28,6 +31,54 @@ public class Fast3dFunctions : MonoBehaviour
 
 
 
+    }
+
+
+
+    public void  CaptureDepth(string url,string filename,Vector2 objectPosition,string urlid){
+
+
+        var texture2D = ConvertRenderTextureToTexture2D(Depth);
+            StartCoroutine(UploadPNG(texture2D, url, filename, "", false, 0, objectPosition, false, "Depth", urlid));
+
+
+
+
+
+
+
+
+    }
+
+
+
+    Texture2D ConvertToTexture2D(Texture texture)
+    {
+        // Ensure the input texture is readable (or handle RenderTexture)
+        RenderTexture renderTexture = RenderTexture.GetTemporary(
+            texture.width,
+            texture.height,
+            0,
+            RenderTextureFormat.Default,
+            RenderTextureReadWrite.Linear
+        );
+
+        // Blit the texture into the RenderTexture
+        Graphics.Blit(texture, renderTexture);
+
+        // Create a new Texture2D
+        Texture2D texture2D = new Texture2D(texture.width, texture.height, TextureFormat.RGBA32, false);
+
+        // Read the RenderTexture contents into the Texture2D
+        RenderTexture.active = renderTexture;
+        texture2D.ReadPixels(new Rect(0, 0, renderTexture.width, renderTexture.height), 0, 0);
+        texture2D.Apply();
+
+        // Clean up
+        RenderTexture.active = null;
+        RenderTexture.ReleaseTemporary(renderTexture);
+
+        return texture2D;
     }
 
 

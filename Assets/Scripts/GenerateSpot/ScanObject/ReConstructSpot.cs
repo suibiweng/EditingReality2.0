@@ -180,11 +180,15 @@ bool Capturing=false;
 
     IEnumerator CaptureRouting(){
         Capturing=true;
+        Vector2 TargetPos =ObjectScreenPosition();
 
         fast3DFunctions.ToggleCullingMask();
         yield return new WaitForSeconds(0.3f);
-        fast3DFunctions.Capture(UploadURL,URLID+".png",ObjectScreenPosition(),URLID);
-        fast3DFunctions.UploadMask(UploadURL,URLID+"_Mask.png","MaskTest",ObjectScreenPosition(),URLID);   
+        fast3DFunctions.Capture(UploadURL,URLID+".png",TargetPos,URLID);
+          yield return new WaitForSeconds(1f);
+        fast3DFunctions.UploadMask(UploadURL,URLID+"_Mask.png","MaskTest",TargetPos,URLID);   
+          yield return new WaitForSeconds(0.3f);
+        fast3DFunctions.CaptureDepth(UploadURL,URLID+"_Depth.png",TargetPos,URLID);
         yield return new WaitForSeconds(0.3f);
         fast3DFunctions.ToggleCullingMask();
         if(FileCheck==null)
