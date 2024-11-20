@@ -69,7 +69,7 @@ public class ReConstructSpot : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        if(debugShow!=null)
         debugShow.isOn = isselsected;
 
         if(isselsected){
@@ -91,11 +91,14 @@ public class ReConstructSpot : MonoBehaviour
 
         
         
-
+        prompt=promptText.text;
 
 
 
     }
+
+
+
 
 
 
@@ -171,6 +174,9 @@ Vector2 ObjectScreenPosition()
 bool Capturing=false;
 
     public void StartGeneration(){
+
+        if(!isselsected) return;
+
         if(!Capturing)
             StartCoroutine(CaptureRouting());
 
@@ -184,18 +190,74 @@ bool Capturing=false;
     
     }
 
+        public void modifywithPrompt(){
 
-    IEnumerator CaptureRouting(){
-        Capturing=true;
+
+
+            if(!isselsected) return;
+
+            if(!Capturing)
+                StartCoroutine(MaskWithPrompt());
+
+
+
+
+
+
+
+
+
+        }
+
+
+
+
+        IEnumerator MaskWithPrompt(){
+
+
+                Capturing=true;
+
         Vector2 TargetPos =ObjectScreenPosition();
-
         fast3DFunctions.ToggleCullingMask();
         yield return new WaitForSeconds(0.3f);
         fast3DFunctions.Capture(UploadURL,URLID+".png",TargetPos,URLID);
-          yield return new WaitForSeconds(1f);
-        fast3DFunctions.UploadMask(UploadURL,URLID+"_Mask.png","MaskTest",TargetPos,URLID);   
-          yield return new WaitForSeconds(0.3f);
-        fast3DFunctions.CaptureDepth(UploadURL,URLID+"_Depth.png",TargetPos,URLID);
+        yield return new WaitForSeconds(0.3f);
+        fast3DFunctions.UploadMask(UploadURL,URLID+"_Mask.png",prompt,TargetPos,URLID);   
+         //yield return new WaitForSeconds(0.3f);
+        //fast3DFunctions.CaptureDepth(UploadURL,URLID+"_Depth.png",TargetPos,URLID);
+        yield return new WaitForSeconds(0.3f);
+        fast3DFunctions.ToggleCullingMask();
+        // if(FileCheck==null)
+        //     FileCheck= StartCoroutine(CheckURLPeriodically(DownloadURL + URLID + "_reconstruct.zip"));
+
+
+        Capturing=false;
+
+
+
+
+
+
+
+        }
+
+
+
+
+
+
+    IEnumerator CaptureRouting(){
+        Capturing=true;
+
+
+        Vector2 TargetPos =ObjectScreenPosition();
+        fast3DFunctions.ToggleCullingMask();
+        yield return new WaitForSeconds(0.3f);
+        fast3DFunctions.Capture(UploadURL,URLID+".png",TargetPos,URLID);
+          //yield return new WaitForSeconds(0.3f);
+          //fast3DFunctions.UploadMask(UploadURL,URLID+"_Mask.png","MaskTest",TargetPos,URLID);   
+         //yield return new WaitForSeconds(0.3f);
+        //fast3DFunctions.CaptureDepth(UploadURL,URLID+"_Depth.png",TargetPos,URLID);
         yield return new WaitForSeconds(0.3f);
         fast3DFunctions.ToggleCullingMask();
         if(FileCheck==null)

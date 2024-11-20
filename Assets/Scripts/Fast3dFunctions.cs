@@ -182,7 +182,7 @@ void InitCameraMask(){
     public void UploadMask(string url, string filename, string prompt,Vector2 objPosition,string urlid)
     {
         Texture2D texture2D = ConvertRenderTextureToTexture2D(Mask);
-        StartCoroutine(UploadPNG(texture2D, url, filename, prompt,true,40,objPosition,true,"MASK",urlid));
+        StartCoroutine(UploadPNG(texture2D, url, filename, prompt,true,40,objPosition,false,"Mask",urlid));
         Destroy(texture2D); // Clean up after upload
     }   
 
