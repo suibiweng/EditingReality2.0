@@ -41,6 +41,8 @@ public class ReConstructSpot : MonoBehaviour
 
   public Toggle debugShow;
 
+  public TMP_Text DebugMsg;
+
   public VoiceLabel voiceLabel;
 
    
@@ -94,6 +96,9 @@ public class ReConstructSpot : MonoBehaviour
         prompt=promptText.text;
 
 
+        DebugMsg.text=prompt;
+
+
 
     }
 
@@ -105,6 +110,8 @@ public class ReConstructSpot : MonoBehaviour
     public void setVoiceInput(){
 
         prompt= voiceLabel.Label.text;
+
+        
         
 
 
@@ -213,9 +220,10 @@ bool Capturing=false;
 
 
         IEnumerator MaskWithPrompt(){
+     //prompt=promptText.text;
 
-
-                Capturing=true;
+        Capturing=true;
+                prompt=voiceLabel.Label.text;
 
         Vector2 TargetPos =ObjectScreenPosition();
         fast3DFunctions.ToggleCullingMask();

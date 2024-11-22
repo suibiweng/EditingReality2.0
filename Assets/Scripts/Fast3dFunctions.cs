@@ -4,6 +4,7 @@ using UnityEngine.Networking;
 using Anaglyph.DisplayCapture;
 using System;
 using UnityEngine.UI;
+using UnityEngine.Android;
 
 public class Fast3dFunctions : MonoBehaviour
 {
@@ -26,6 +27,7 @@ public class Fast3dFunctions : MonoBehaviour
         displayCaptureManager= FindAnyObjectByType<DisplayCaptureManager>();
 
         StartCapture();
+        Permission.RequestUserPermission(Permission.Microphone);
 
          InitCameraMask();
 
