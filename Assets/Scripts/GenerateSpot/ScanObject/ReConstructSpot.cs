@@ -11,6 +11,8 @@ using Oculus.Interaction;
 
 public class ReConstructSpot : MonoBehaviour
 {
+
+    
     public RealityEditorManager manager;
 
     public TMP_Text promptText;
@@ -35,6 +37,8 @@ public class ReConstructSpot : MonoBehaviour
    public string DownloadURL="";
    public string UploadURL="";
 
+   public string commandURL="";
+
    public BoundBox boundBox;
    public bool isselsected=false;
   public Grabbable _grabbable;
@@ -45,17 +49,22 @@ public class ReConstructSpot : MonoBehaviour
 
   public VoiceLabel voiceLabel;
 
+  public DrawingSystem drawingSystem;
+
    
 
     void Start()
     {
+        drawingSystem=  FindObjectOfType<DrawingSystem>();
         manager = FindObjectOfType<RealityEditorManager>();
         modelDownloader = FindObjectOfType<ModelDownloader>();
         fast3DFunctions= FindObjectOfType<Fast3dFunctions>();
         DownloadURL=manager.ServerURL;
         UploadURL=manager.ServerURL;
+        commandURL=manager.ServerURL;
         DownloadURL+=":"+manager.downloadPort+"/";
         UploadURL+=":"+manager.uploadPort+"/upload";
+        commandURL+=":"+manager.uploadPort+"/command";
       //  ServerURL+=":"+downloadPort+"/";
        // fast3DFunctions.StartCapture();
 //    _grabbable = GetComponent<Grabbable>();
@@ -68,11 +77,55 @@ public class ReConstructSpot : MonoBehaviour
         
     }
 
+  public void ClearAllChildren()
+    {
+        GameObject parentObject=Target;
+        Preseting=false;
+        // Check if the parentObject is assigned
+        if (parentObject != null)
+        {
+            // Check if the parent has children
+            if (parentObject.transform.childCount > 0)
+            {
+                // Loop through all children and destroy them
+                foreach (Transform child in parentObject.transform)
+                {
+                    Destroy(child.gameObject);
+                }
+                Debug.Log("All children of " + parentObject.name + " have been cleared.");
+            }
+            else
+            {
+                Debug.Log("The parent " + parentObject.name + " has no children to clear.");
+            }
+        }
+        else
+        {
+            Debug.LogWarning("Parent GameObject is not assigned!");
+        }
+    }
+
+    
+
     // Update is called once per frame
     void Update()
     {
         if(debugShow!=null)
         debugShow.isOn = isselsected;
+
+
+         if(Input.GetKeyDown(KeyCode.A)){
+
+            StartGeneration();
+
+        }
+
+
+        if(Input.GetKeyDown(KeyCode.B)){
+
+          modifywithPrompt();
+
+        }
 
         if(isselsected){
 
@@ -81,6 +134,15 @@ public class ReConstructSpot : MonoBehaviour
             StartGeneration();
 
         }
+
+
+        }
+
+
+        if(Target.transform.childCount>0){
+
+            PresetTheDownloadedModel();
+
 
 
         }
@@ -94,9 +156,34 @@ public class ReConstructSpot : MonoBehaviour
         
         
         prompt=promptText.text;
-
-
         DebugMsg.text=prompt;
+
+
+
+    }
+
+    bool Preseting=false;
+
+
+    void PresetTheDownloadedModel(){
+
+        if (Preseting)return;
+
+
+        Material [] materials = Target.GetComponentInChildren<MeshRenderer>().materials;
+
+        foreach (Material material in materials){
+
+             material.shader = Shader.Find("Unlit/Texture");
+
+
+        }
+
+
+
+        Preseting=true;
+
+
 
 
 
@@ -183,6 +270,7 @@ bool Capturing=false;
     public void StartGeneration(){
 
         if(!isselsected) return;
+        ClearAllChildren();
 
         if(!Capturing)
             StartCoroutine(CaptureRouting());
@@ -202,7 +290,7 @@ bool Capturing=false;
 
 
             if(!isselsected) return;
-
+         ClearAllChildren();
             if(!Capturing)
                 StartCoroutine(MaskWithPrompt());
 
@@ -225,19 +313,25 @@ bool Capturing=false;
         Capturing=true;
                 prompt=voiceLabel.Label.text;
 
+
+       
+
         Vector2 TargetPos =ObjectScreenPosition();
         fast3DFunctions.ToggleCullingMask();
         yield return new WaitForSeconds(0.3f);
-        fast3DFunctions.Capture(UploadURL,URLID+".png",TargetPos,URLID);
+       fast3DFunctions.ModifyCapture(UploadURL,URLID+".png",TargetPos,URLID);
+        
         yield return new WaitForSeconds(0.3f);
-        fast3DFunctions.UploadMask(UploadURL,URLID+"_Mask.png",prompt,TargetPos,URLID);   
+        fast3DFunctions.UploadMask(UploadURL,URLID+"_Mask.png",prompt,TargetPos,URLID); 
+
+          
          //yield return new WaitForSeconds(0.3f);
         //fast3DFunctions.CaptureDepth(UploadURL,URLID+"_Depth.png",TargetPos,URLID);
         yield return new WaitForSeconds(0.3f);
         fast3DFunctions.ToggleCullingMask();
-        // if(FileCheck==null)
-        //     FileCheck= StartCoroutine(CheckURLPeriodically(DownloadURL + URLID + "_reconstruct.zip"));
-
+        if(FileCheck==null)
+            FileCheck= StartCoroutine(CheckURLPeriodically(DownloadURL + URLID + "_reconstruct.zip"));
+        drawingSystem.ClearAndDestroyStackObjects();
 
         Capturing=false;
 
@@ -262,6 +356,10 @@ bool Capturing=false;
         fast3DFunctions.ToggleCullingMask();
         yield return new WaitForSeconds(0.3f);
         fast3DFunctions.Capture(UploadURL,URLID+".png",TargetPos,URLID);
+
+
+       // fast3DFunctions.sendCommand(commandURL,"IpcamCapture",URLID);
+        
           //yield return new WaitForSeconds(0.3f);
           //fast3DFunctions.UploadMask(UploadURL,URLID+"_Mask.png","MaskTest",TargetPos,URLID);   
          //yield return new WaitForSeconds(0.3f);

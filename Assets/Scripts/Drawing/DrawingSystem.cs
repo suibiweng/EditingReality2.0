@@ -31,6 +31,31 @@ public class DrawingSystem : MonoBehaviour
         
     }
 
+    public void ClearAndDestroyStackObjects()
+    {
+        // Check if the stack has objects
+        if (Strokestack.Count > 0)
+        {
+            // Destroy all GameObjects in the stack
+            foreach (GameObject obj in Strokestack)
+            {
+                if (obj != null)
+                {
+                    Destroy(obj);
+                }
+            }
+
+            // Clear the stack
+            Strokestack.Clear();
+            Debug.Log("Stack has been cleared and all GameObjects destroyed.");
+        }
+        else
+        {
+            Debug.Log("Stack is already empty.");
+        }
+    }
+
+
     public GameObject tempSroke=null;
 
     // Update is called once per frame
