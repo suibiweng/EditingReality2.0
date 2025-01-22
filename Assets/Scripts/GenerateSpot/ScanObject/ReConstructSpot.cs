@@ -62,18 +62,11 @@ public class ReConstructSpot : MonoBehaviour
         DownloadURL=manager.ServerURL;
         UploadURL=manager.ServerURL;
         commandURL=manager.ServerURL;
-        DownloadURL+=":"+manager.downloadPort+"/";
-        UploadURL+=":"+manager.uploadPort+"/upload";
-        commandURL+=":"+manager.uploadPort+"/command";
-      //  ServerURL+=":"+downloadPort+"/";
-       // fast3DFunctions.StartCapture();
-//    _grabbable = GetComponent<Grabbable>();
+   //     DownloadURL+=":"+manager.downloadPort+"/";
+        DownloadURL+=":"+manager.Port+"/download";
+        UploadURL+=":"+manager.Port+"/upload";
+        commandURL+=":"+manager.Port+"/command";
         _grabbable.WhenPointerEventRaised += HandlePointerEventRaised;
-
-
-  
-
-
         
     }
 
@@ -330,15 +323,10 @@ bool Capturing=false;
         yield return new WaitForSeconds(0.3f);
         fast3DFunctions.ToggleCullingMask();
         if(FileCheck==null)
-            FileCheck= StartCoroutine(CheckURLPeriodically(DownloadURL + URLID + "_reconstruct.zip"));
+            FileCheck= StartCoroutine(CheckURLPeriodically(DownloadURL+"/" + URLID + "_reconstruct.zip"));
         drawingSystem.ClearAndDestroyStackObjects();
 
         Capturing=false;
-
-
-
-
-
 
 
         }

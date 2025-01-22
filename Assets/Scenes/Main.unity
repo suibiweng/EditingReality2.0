@@ -3510,9 +3510,8 @@ MonoBehaviour:
   LeftHand: {fileID: 1905771714}
   RightHand: {fileID: 1405592736}
   PlayerCamera: {fileID: 1600638231}
-  uploadPort: 5000
-  downloadPort: 8000
-  ServerURL: http://192.168.0.241
+  Port: 5000
+  ServerURL: http://192.168.0.139
   ReConSpot: {fileID: 7490433459993616577, guid: 9daf14e4c1dbec94b97c12973356ba01, type: 3}
   SceneSaverTest: {fileID: 0}
   selectedIDUrl: 
