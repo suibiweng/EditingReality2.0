@@ -12,7 +12,6 @@ using Oculus.Interaction;
 public class ReConstructSpot : MonoBehaviour
 {
 
-    
     public RealityEditorManager manager;
 
     public TMP_Text promptText;
@@ -347,7 +346,6 @@ bool Capturing=false;
 
 
        // fast3DFunctions.sendCommand(commandURL,"IpcamCapture",URLID);
-        
           //yield return new WaitForSeconds(0.3f);
           //fast3DFunctions.UploadMask(UploadURL,URLID+"_Mask.png","MaskTest",TargetPos,URLID);   
          //yield return new WaitForSeconds(0.3f);
@@ -355,7 +353,7 @@ bool Capturing=false;
         yield return new WaitForSeconds(0.3f);
         fast3DFunctions.ToggleCullingMask();
         if(FileCheck==null)
-            FileCheck= StartCoroutine(CheckURLPeriodically(DownloadURL + URLID + "_reconstruct.zip"));
+            FileCheck= StartCoroutine(CheckURLPeriodically(DownloadURL +"/"+ URLID + "_reconstruct.zip"));
 
 
         Capturing=false;
