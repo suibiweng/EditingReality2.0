@@ -69,6 +69,8 @@ public class ReConstructSpot : MonoBehaviour
         
     }
 
+
+
   public void ClearAllChildren()
     {
         GameObject parentObject=Target;
@@ -119,6 +121,14 @@ public class ReConstructSpot : MonoBehaviour
 
         }
 
+
+        if(Input.GetKeyDown(KeyCode.C)){
+
+           FileCheck= StartCoroutine(CheckURLPeriodically(DownloadURL+"/" + "202501251810407ce9bb9f" + "_reconstruct.zip"));
+
+        }
+
+
         if(isselsected){
 
         if(OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger)){
@@ -166,7 +176,9 @@ public class ReConstructSpot : MonoBehaviour
 
         foreach (Material material in materials){
 
-             material.shader = Shader.Find("Unlit/Texture");
+             //material.shader = Shader.Find("Unlit/Texture"); 
+
+             material.shader = Shader.Find("VertexColor");
 
 
         }
