@@ -323,7 +323,7 @@ bool Capturing=false;
         Vector2 TargetPos =ObjectScreenPosition();
         fast3DFunctions.ToggleCullingMask();
         yield return new WaitForSeconds(0.3f);
-       fast3DFunctions.ModifyCapture(UploadURL,URLID+".png",TargetPos,URLID);
+        fast3DFunctions.ModifyCapture(UploadURL,URLID+"_Modify.png",TargetPos,URLID);
         
         yield return new WaitForSeconds(0.3f);
         fast3DFunctions.UploadMask(UploadURL,URLID+"_Mask.png",prompt,TargetPos,URLID); 
