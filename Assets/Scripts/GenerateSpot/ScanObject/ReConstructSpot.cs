@@ -50,6 +50,8 @@ public class ReConstructSpot : MonoBehaviour
 
   public DrawingSystem drawingSystem;
 
+  public ParticleSystem LodingEffect;
+
    
 
     void Start()
@@ -61,8 +63,8 @@ public class ReConstructSpot : MonoBehaviour
         DownloadURL=manager.ServerURL;
         UploadURL=manager.ServerURL;
         commandURL=manager.ServerURL;
-   //     DownloadURL+=":"+manager.downloadPort+"/";
-        DownloadURL+=":"+manager.Port+"/download";
+        DownloadURL+=":"+"8181"+"/";
+        //DownloadURL+=":"+manager.Port+"/download";
         UploadURL+=":"+manager.Port+"/upload";
         commandURL+=":"+manager.Port+"/command";
         _grabbable.WhenPointerEventRaised += HandlePointerEventRaised;
@@ -272,6 +274,7 @@ Vector2 ObjectScreenPosition()
 bool Capturing=false;
 
     public void StartGeneration(){
+        LodingEffect.Play();
 
         if(!isselsected) return;
         ClearAllChildren();
@@ -291,7 +294,7 @@ bool Capturing=false;
 
         public void modifywithPrompt(){
 
-
+LodingEffect.Play();
 
             if(!isselsected) return;
          ClearAllChildren();
@@ -450,6 +453,9 @@ bool Capturing=false;
             FileCheck=null;
 
             downloadModel(url, Target);
+
+
+            LodingEffect.Stop();
 
 
 
