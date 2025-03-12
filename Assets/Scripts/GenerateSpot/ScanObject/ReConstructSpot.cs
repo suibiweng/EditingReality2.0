@@ -63,10 +63,10 @@ public class ReConstructSpot : MonoBehaviour
         DownloadURL=manager.ServerURL;
         UploadURL=manager.ServerURL;
         commandURL=manager.ServerURL;
-        DownloadURL+=":"+"8181"+"/";
+        DownloadURL+=":"+manager.downloadPortPort+"/";
         //DownloadURL+=":"+manager.Port+"/download";
-        UploadURL+=":"+manager.Port+"/upload";
-        commandURL+=":"+manager.Port+"/command";
+        UploadURL+=":"+manager.UploadPort+"/upload";
+        commandURL+=":"+manager.UploadPort+"/command";
         _grabbable.WhenPointerEventRaised += HandlePointerEventRaised;
         
     }
@@ -123,6 +123,12 @@ public class ReConstructSpot : MonoBehaviour
 
         }
 
+        if(Input.GetKeyDown(KeyCode.F4)){
+
+           fast3DFunctions.ChangeMaterial(commandURL,"202503062014259f46ab33","Turn it into Gold");
+
+        }
+
 
         if(Input.GetKeyDown(KeyCode.C)){
 
@@ -135,7 +141,7 @@ public class ReConstructSpot : MonoBehaviour
 
         if(OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger)){
 
-            StartGeneration();
+         //   StartGeneration();
 
         }
 

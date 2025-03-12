@@ -3571,7 +3571,8 @@ MonoBehaviour:
   LeftHand: {fileID: 1905771714}
   RightHand: {fileID: 1405592736}
   PlayerCamera: {fileID: 1600638231}
-  Port: 5000
+  UploadPort: 
+  downloadPortPort: 
   ServerURL: http://10.0.0.125
   ReConSpot: {fileID: 7490433459993616577, guid: 9daf14e4c1dbec94b97c12973356ba01, type: 3}
   SceneSaverTest: {fileID: 0}
@@ -9489,6 +9490,10 @@ PrefabInstance:
     - target: {fileID: 7490433459993616577, guid: 9daf14e4c1dbec94b97c12973356ba01, type: 3}
       propertyPath: m_Name
       value: ReConstructSpot (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7490433459993616577, guid: 9daf14e4c1dbec94b97c12973356ba01, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8994061789686754925, guid: 9daf14e4c1dbec94b97c12973356ba01, type: 3}
       propertyPath: m_LocalPosition.x

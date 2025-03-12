@@ -35,6 +35,11 @@ public class Fast3dFunctions : MonoBehaviour
 
     }
 
+    public void ChangeMaterial(string url,string urlid,string Prompt)
+        {
+             StartCoroutine(SendtheCommand2Texture( url,"ChangeTexture",urlid,Prompt));
+        }
+
     
 
 
@@ -287,6 +292,32 @@ public IEnumerator SendtheCommand( string url,string command ,string urlid)
 
         form.AddField("Command", command);
         form.AddField("URLID",urlid);
+
+        UnityWebRequest request = UnityWebRequest.Post(url, form);
+        yield return request.SendWebRequest();
+
+        if (request.result == UnityWebRequest.Result.Success)
+        {
+            Debug.Log("Command sent: " + command);
+        }
+        else
+        {
+            Debug.LogError("Error: " + request.error);
+        }
+    }
+}
+
+
+public IEnumerator SendtheCommand2Texture( string url,string command ,string urlid,string prompt)
+{
+    
+    if (command != "")
+    {
+        WWWForm form = new WWWForm();
+
+        form.AddField("Command", command);
+        form.AddField("URLID",urlid);
+        form.AddField("Prompt",prompt);
 
         UnityWebRequest request = UnityWebRequest.Post(url, form);
         yield return request.SendWebRequest();

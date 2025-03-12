@@ -11,7 +11,9 @@ public class RealityEditorManager : MonoBehaviour
 {
     public Transform LeftHand, RightHand;
     public Transform PlayerCamera; 
-    public string Port;
+    public string UploadPort;
+
+    public string downloadPortPort;
     public string ServerURL;
 
     public Dictionary<string,GameObject> GenCubesDic;
