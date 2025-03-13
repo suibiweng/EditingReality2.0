@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using RealityEditor;
-using Normal.Realtime; 
+// using Normal.Realtime; 
 using TMPro;
 using TriLibCore.Dae.Schema;
 
@@ -11,9 +11,7 @@ public class RealityEditorManager : MonoBehaviour
 {
     public Transform LeftHand, RightHand;
     public Transform PlayerCamera; 
-    public string UploadPort;
-
-    public string downloadPortPort;
+    public string Port;
     public string ServerURL;
 
     public Dictionary<string,GameObject> GenCubesDic;
@@ -35,12 +33,12 @@ public class RealityEditorManager : MonoBehaviour
 
     public string VoiceToPrompt;
     
-    public GameObject sculptingMenu,scuptingBrush;
-    public OSC osc;
+    // public GameObject sculptingMenu,scuptingBrush;
+    // public OSC osc;
     private int colorcubeMover; 
     void Start()
     {
-        osc=FindObjectOfType<OSC>();   
+        // osc=FindObjectOfType<OSC>();   
 
         // ServerURL+=":"+downloadPort+"/";
      
@@ -87,8 +85,8 @@ public class RealityEditorManager : MonoBehaviour
 
     public void turnSculptingMenu(bool on){
 
-        sculptingMenu.SetActive(on);
-        scuptingBrush.SetActive(on);
+        // sculptingMenu.SetActive(on);
+        // scuptingBrush.SetActive(on);
     }
 
     public GameObject getSelectSpot(){
@@ -106,9 +104,9 @@ public class RealityEditorManager : MonoBehaviour
         // if(OVRInput.GetUp(OVRInput.RawButton.X)){
         //     createSpot(LeftHand.position);
         // }
-        if(Input.GetKeyDown(KeyCode.Space)){
-                createReconsroctSpot();
-        }
+        // if(Input.GetKeyDown(KeyCode.Space)){
+        //         createReconsroctSpot();
+        // }
         // if(Input.GetKeyDown(KeyCode.S)){
         //     SceneSaverTest.SaveGenerateSpotsToPlayerPrefs();
         // }
@@ -157,81 +155,81 @@ public class RealityEditorManager : MonoBehaviour
 
 
 
-    public string createReconstructionSpot(Vector3 pos,Quaternion rot,Vector3 scale,string vid){
+    // public string createReconstructionSpot(Vector3 pos,Quaternion rot,Vector3 scale,string vid){
 
 
-        Realtime.InstantiateOptions options = new Realtime.InstantiateOptions
-        {
-            ownedByClient = true,
-            preventOwnershipTakeover = false,
-            // destroyWhenOwnerOrLastClientLeaves = true,
-            useInstance = null // or specify the Realtime instance if necessary
-        };
-        GameObject gcube = Realtime.Instantiate("GenrateSpot2.1", pos, Quaternion.identity, options); //this might be obsolete trying new options feature
+    //     Realtime.InstantiateOptions options = new Realtime.InstantiateOptions
+    //     {
+    //         ownedByClient = true,
+    //         preventOwnershipTakeover = false,
+    //         // destroyWhenOwnerOrLastClientLeaves = true,
+    //         useInstance = null // or specify the Realtime instance if necessary
+    //     };
+    //     GameObject gcube = Realtime.Instantiate("GenrateSpot2.1", pos, Quaternion.identity, options); //this might be obsolete trying new options feature
       
-        gcube.transform.localScale = scale;
-        gcube.transform.rotation=rot;
+    //     gcube.transform.localScale = scale;
+    //     gcube.transform.rotation=rot;
       
-        gcube.GetComponent<GenerateSpot>().id=IDs;
-        string urlid=TimestampGenerator.GetTimestamp(); 
-        gcube.GetComponent<GenerateSpot>().URLID=urlid+vid;
+    //     gcube.GetComponent<GenerateSpot>().id=IDs;
+    //     string urlid=TimestampGenerator.GetTimestamp(); 
+    //     gcube.GetComponent<GenerateSpot>().URLID=urlid+vid;
 
 
         
-        gcube.GetComponent<GenerateSpot>().setTheType(2);
+    //     gcube.GetComponent<GenerateSpot>().setTheType(2);
         
-        Debug.Log("The new Cube's URLID is: " + urlid);
-        // gcube.GetComponent<DataSync2>().SetURLID(urlid); //setting the network urlid once right after we make the spot. But this dont work
-        Debug.Log("Setting the network urlid to be: " + urlid);
-        GenCubesDic.Add(urlid,gcube); //think about this: Are we adding the cube to the other players dictionaries? 
-        //selectedIDUrl=urlid;  
-        IDs++;
+    //     Debug.Log("The new Cube's URLID is: " + urlid);
+    //     // gcube.GetComponent<DataSync2>().SetURLID(urlid); //setting the network urlid once right after we make the spot. But this dont work
+    //     Debug.Log("Setting the network urlid to be: " + urlid);
+    //     GenCubesDic.Add(urlid,gcube); //think about this: Are we adding the cube to the other players dictionaries? 
+    //     //selectedIDUrl=urlid;  
+    //     IDs++;
 
-        return urlid;
-
-
+    //     return urlid;
 
 
-    }
+
+
+    // }
 
 
     
     
     private void createSpot(Vector3 pos)
     {
-        Realtime.InstantiateOptions options = new Realtime.InstantiateOptions
-        {
-            ownedByClient = true,
-            preventOwnershipTakeover = false,
-            // destroyWhenOwnerOrLastClientLeaves = true,
-            useInstance = null // or specify the Realtime instance if necessary
-        };
-        GameObject gcube = Realtime.Instantiate("GenrateSpot2.1", pos, Quaternion.identity, options); //this might be obsolete trying new options feature
-        gcube.GetComponent<GenerateSpot>().id=IDs;
-        string urlid=TimestampGenerator.GetTimestamp(); 
-        gcube.GetComponent<GenerateSpot>().URLID=urlid;
-        Debug.Log("The new Cube's URLID is: " + urlid);
-        // gcube.GetComponent<DataSync2>().SetURLID(urlid); //setting the network urlid once right after we make the spot. But this dont work
-        Debug.Log("Setting the network urlid to be: " + urlid);
-        GenCubesDic.Add(urlid,gcube); //think about this: Are we adding the cube to the other players dictionaries? 
-        selectedIDUrl=urlid;  
-        IDs++;
+        // Realtime.InstantiateOptions options = new Realtime.InstantiateOptions
+        // {
+        //     ownedByClient = true,
+        //     preventOwnershipTakeover = false,
+        //     // destroyWhenOwnerOrLastClientLeaves = true,
+        //     useInstance = null // or specify the Realtime instance if necessary
+        // };
+        // GameObject gcube = Realtime.Instantiate("GenrateSpot2.1", pos, Quaternion.identity, options); //this might be obsolete trying new options feature
+        // gcube.GetComponent<GenerateSpot>().id=IDs;
+        // string urlid=TimestampGenerator.GetTimestamp(); 
+        // gcube.GetComponent<GenerateSpot>().URLID=urlid;
+        // Debug.Log("The new Cube's URLID is: " + urlid);
+        // // gcube.GetComponent<DataSync2>().SetURLID(urlid); //setting the network urlid once right after we make the spot. But this dont work
+        // Debug.Log("Setting the network urlid to be: " + urlid);
+        // GenCubesDic.Add(urlid,gcube); //think about this: Are we adding the cube to the other players dictionaries? 
+        // selectedIDUrl=urlid;  
+        // IDs++;
     }
-    public GameObject createSavedSpot(Vector3 pos, Quaternion rot, Vector3 scale, string urlid) // same as create spot function but includes scaling and rotating
-    {
-        Debug.Log("Creating Saved spot at " + pos);
-        GameObject gcube = Realtime.Instantiate("GenrateSpot2.1", pos, rot);
-        gcube.transform.localScale = scale;
-        gcube.GetComponent<GenerateSpot>().id=IDs;
-        gcube.GetComponent<GenerateSpot>().URLID=urlid;
-        // gcube.GetComponent<DataSync2>().SetURLID(urlid); //setting the network urlid once right after we make the spot. But this dont work
-        GenCubesDic.Add(urlid,gcube);
-        selectedIDUrl=urlid;
-        Debug.Log("Setting the new spots SelectedIDUrl to be: " + selectedIDUrl);
-        IDs++;
-        return gcube; 
+    // public GameObject createSavedSpot(Vector3 pos, Quaternion rot, Vector3 scale, string urlid) // same as create spot function but includes scaling and rotating
+    // {
+    //     Debug.Log("Creating Saved spot at " + pos);
+    //     GameObject gcube = Realtime.Instantiate("GenrateSpot2.1", pos, rot);
+    //     gcube.transform.localScale = scale;
+    //     gcube.GetComponent<GenerateSpot>().id=IDs;
+    //     gcube.GetComponent<GenerateSpot>().URLID=urlid;
+    //     // gcube.GetComponent<DataSync2>().SetURLID(urlid); //setting the network urlid once right after we make the spot. But this dont work
+    //     GenCubesDic.Add(urlid,gcube);
+    //     selectedIDUrl=urlid;
+    //     Debug.Log("Setting the new spots SelectedIDUrl to be: " + selectedIDUrl);
+    //     IDs++;
+    //     return gcube; 
 
-    }
+    // }
 
    public void RemoveSpot(string urlid){
        Destroy(GenCubesDic[urlid].gameObject);
@@ -240,25 +238,25 @@ public class RealityEditorManager : MonoBehaviour
     }
    
     public void InstructModify(int id,string promt,string urlid){
-        OscMessage message = new OscMessage()
-        {
-            address = "/InstructModify"
-        };
-        message.values.Add(id);
-        message.values.Add(promt);
-        message.values.Add(urlid);
-        osc.Send(message);
+        // OscMessage message = new OscMessage()
+        // {
+        //     address = "/InstructModify"
+        // };
+        // message.values.Add(id);
+        // message.values.Add(promt);
+        // message.values.Add(urlid);
+        // osc.Send(message);
 
     }
     
     public void ScanObj(int id){
 
-        OscMessage message = new OscMessage()
-        {
-            address = "/ScanModel"
-        };
-        message.values.Add(id);
-        //message.values.Add(promt);
+        // OscMessage message = new OscMessage()
+        // {
+        //     address = "/ScanModel"
+        // };
+        // message.values.Add(id);
+        // //message.values.Add(promt);
 
     }
     
@@ -278,21 +276,21 @@ public class RealityEditorManager : MonoBehaviour
     }
     
     public void promtGenerateModel(int id,string promt,string URLID){
-        Debug.Log("Checkpoint 2");
+        // Debug.Log("Checkpoint 2");
 
-        OscMessage message = new OscMessage()
-        {
-            address = "/PromtGenerateModel"
-        };
-        Debug.Log("Checkpoint 3");
+        // OscMessage message = new OscMessage()
+        // {
+        //     address = "/PromtGenerateModel"
+        // };
+        // Debug.Log("Checkpoint 3");
 
-        message.values.Add(id);
-        message.values.Add(promt);
-        message.values.Add(URLID);
-        message.values.Add("genrated");
-        Debug.Log("Checkpoint 4");
-        osc.Send(message);
-        Debug.Log("Checkpoint 5");
+        // message.values.Add(id);
+        // message.values.Add(promt);
+        // message.values.Add(URLID);
+        // message.values.Add("genrated");
+        // Debug.Log("Checkpoint 4");
+        // osc.Send(message);
+        // Debug.Log("Checkpoint 5");
 
 
     }
@@ -331,13 +329,13 @@ public class RealityEditorManager : MonoBehaviour
     // }
     public void sendStop(){
         
-        OscMessage message = new OscMessage()
-        {
-            address = "/stopProcess"
-        };
+        // OscMessage message = new OscMessage()
+        // {
+        //     address = "/stopProcess"
+        // };
     
 
-        osc.Send(message);
+        // osc.Send(message);
 
     }
     

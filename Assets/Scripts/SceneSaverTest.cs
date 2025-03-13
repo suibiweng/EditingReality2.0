@@ -37,7 +37,7 @@ public class SceneSaverTest : MonoBehaviour
        if(OVRInput.GetUp(OVRInput.RawButton.RThumbstick)){
            source.PlayOneShot(loadingSound);
            Debug.Log("Load Button Has Been Pressed. Loading Scene...");
-           LoadGenerateSpotsFromPlayerPrefs();
+          // LoadGenerateSpotsFromPlayerPrefs();
        }
    }
 
@@ -74,27 +74,27 @@ public class SceneSaverTest : MonoBehaviour
    }
 
 
-   public void LoadGenerateSpotsFromPlayerPrefs()
-   {
-       // Check if the key exists
-       if (PlayerPrefs.HasKey("GenerateSpotData"))
-       {
-           // Get the JSON string
-           string json = PlayerPrefs.GetString("GenerateSpotData");
-           // Debug.Log("Loading the JSON String: " + json);
+//    public void LoadGenerateSpotsFromPlayerPrefs()
+//    {
+//        // Check if the key exists
+//        if (PlayerPrefs.HasKey("GenerateSpotData"))
+//        {
+//            // Get the JSON string
+//            string json = PlayerPrefs.GetString("GenerateSpotData");
+//            // Debug.Log("Loading the JSON String: " + json);
 
-           // Deserialize the JSON string back to the object 
-           GenerateSpotDataList allData = JsonUtility.FromJson<GenerateSpotDataList>(json);
+//            // Deserialize the JSON string back to the object 
+//            GenerateSpotDataList allData = JsonUtility.FromJson<GenerateSpotDataList>(json);
  
-           Debug.Log("Loading scene with " + allData.generateSpotDataList.Count + " Cubes");
-           foreach (var data in allData.generateSpotDataList)
-           {
-               GameObject newObject = RealityEditorManager2.createSavedSpot(data.position, data.rotation, data.scale, data.urlid);
-               Debug.Log("loading urlid: " + data.urlid);
-               // newObject.GetComponent<GenerateSpot2>().URLID = data.URLID;
-               newObject.GetComponent<GenerateSpot>().initAdd();
-           }
-       }
-   }
+//            Debug.Log("Loading scene with " + allData.generateSpotDataList.Count + " Cubes");
+//            foreach (var data in allData.generateSpotDataList)
+//            {
+//                GameObject newObject = RealityEditorManager2.createSavedSpot(data.position, data.rotation, data.scale, data.urlid);
+//                Debug.Log("loading urlid: " + data.urlid);
+//                // newObject.GetComponent<GenerateSpot2>().URLID = data.URLID;
+//                newObject.GetComponent<GenerateSpot>().initAdd();
+//            }
+//        }
+//}
 }
 

@@ -24,21 +24,18 @@ public class Fast3dFunctions : MonoBehaviour
     public DisplayCaptureManager displayCaptureManager;
 
     void Start() {
+        InitCameraMask();
         displayCaptureManager= FindAnyObjectByType<DisplayCaptureManager>();
-
         StartCapture();
+
+    // ToggleCullingMask();
        
 
-         InitCameraMask();
+    
 
 
 
     }
-
-    public void ChangeMaterial(string url,string urlid,string Prompt)
-        {
-             StartCoroutine(SendtheCommand2Texture( url,"ChangeTexture",urlid,Prompt));
-        }
 
     
 
@@ -155,18 +152,18 @@ void InitCameraMask(){
 
     }
 
-    public void StopCapture(){
-
+    public void StopCapture()
+    {
 
         displayCaptureManager.StopScreenCapture();
 
 
     }
 
-    public void sendCommand(string url,string command ,string urlid)
+    public void sendCommand(string url,string command ,string urlid,string Prompt)
     {
 
-        StartCoroutine(SendtheCommand(url,command,urlid));
+        StartCoroutine(SendtheCommand(url,command,urlid,Prompt));
 
 
 
@@ -187,19 +184,19 @@ void InitCameraMask(){
 
 
 
-        public void CaptureIpCam(string url, string filename,Vector2 objPosition,string urlid)
+    public void CaptureIpCam(string url, string filename,Vector2 objPosition,string urlid)
     {
         if (streamingTexture == null)
         {
             Debug.LogError("No texture set for streaming. Use UpdateTexture to set a texture first.");
-            return;
+        
         }
 
         StartCoroutine(UploadPNG(streamingTexture, url, filename,"",false,0,objPosition,false,"IP_RGB",urlid));
     }
 
 
-        public void ModifyCapture(string url, string filename,Vector2 objPosition,string urlid)
+    public void ModifyCapture(string url, string filename,Vector2 objPosition,string urlid)
     {
         if (streamingTexture == null)
         {
@@ -209,6 +206,37 @@ void InitCameraMask(){
 
         StartCoroutine(UploadPNG(streamingTexture, url, filename,"",false,0,objPosition,false,"RGB_modify",urlid));
     }
+
+
+    public void DreamMesh(string url,string urlid,string Prompt){
+
+
+        StartCoroutine(SendtheCommand( url,"ShapeE",urlid,Prompt));
+
+
+
+    }
+
+
+
+
+
+
+        public void ChangeMaterial(string url,string urlid,string Prompt)
+        {
+
+
+
+            StartCoroutine(SendtheCommand( url,"ChangeTexture",urlid,Prompt));
+
+
+
+
+
+
+
+
+        }
 
 
     // Capture and upload the current streaming texture with a custom filename
@@ -283,32 +311,7 @@ public IEnumerator UploadPNG(Texture2D texture, string url, string filename, str
 }
 
 
-public IEnumerator SendtheCommand( string url,string command ,string urlid)
-{
-    
-    if (command != "")
-    {
-        WWWForm form = new WWWForm();
-
-        form.AddField("Command", command);
-        form.AddField("URLID",urlid);
-
-        UnityWebRequest request = UnityWebRequest.Post(url, form);
-        yield return request.SendWebRequest();
-
-        if (request.result == UnityWebRequest.Result.Success)
-        {
-            Debug.Log("Command sent: " + command);
-        }
-        else
-        {
-            Debug.LogError("Error: " + request.error);
-        }
-    }
-}
-
-
-public IEnumerator SendtheCommand2Texture( string url,string command ,string urlid,string prompt)
+public IEnumerator SendtheCommand( string url,string command ,string urlid,string prompt)
 {
     
     if (command != "")
