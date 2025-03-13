@@ -26,6 +26,9 @@ public class Fast3dFunctions : MonoBehaviour
     void Start() {
         displayCaptureManager= FindAnyObjectByType<DisplayCaptureManager>();
 
+
+         RequestMicrophonePermission();
+
         StartCapture();
        
 
@@ -33,6 +36,17 @@ public class Fast3dFunctions : MonoBehaviour
 
 
 
+    }
+
+
+
+
+    void RequestMicrophonePermission()
+    {
+        if (!Permission.HasUserAuthorizedPermission(Permission.Microphone))
+        {
+            Permission.RequestUserPermission(Permission.Microphone);
+        }
     }
 
     

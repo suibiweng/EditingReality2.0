@@ -5,9 +5,11 @@ using UnityEngine.UI;
 using TMPro;
 public class DebugListener : MonoBehaviour
 {
+
     private string msgString = "";
     void OnEnable()
     {
+        
         Application.logMessageReceived += LogMessage;
     }
 
