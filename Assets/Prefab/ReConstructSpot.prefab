@@ -17996,6 +17996,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56c9d54fea1974f4daeb40bbb52c13f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  VersionInfoText: {fileID: 0}
+  SizeAdjustment: {fileID: 0}
+  TransparentAdjustment: {fileID: 0}
+  PromptModes: {fileID: 0}
+  promptType: 0
+  Version: 0
+  versionIds: []
   manager: {fileID: 0}
   promptText: {fileID: 4474423891215738339}
   prompt: 
@@ -18004,6 +18011,7 @@ MonoBehaviour:
   fast3DFunctions: {fileID: 0}
   URLID: 
   serverURL: 
+  loadingParticles: {fileID: 0}
   DownloadURL: 
   UploadURL: 
   commandURL: 
@@ -18014,7 +18022,9 @@ MonoBehaviour:
   DebugMsg: {fileID: 5370306336228427959}
   voiceLabel: {fileID: 2789892756203510895}
   drawingSystem: {fileID: 0}
-  LodingEffect: {fileID: 8561772542074456398}
+  thePresetShader: {fileID: 0}
+  debugPrompt: Red Apple
+  ObjectsVersion: []
   checkInterval: 5
 --- !u!1 &7625156112618637544
 GameObject:
@@ -50072,11 +50082,6 @@ PrefabInstance:
 --- !u!4 &3919919298111479695 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 908261855796263270, guid: a2cb793cc5f3bdf408a0b84141661a34, type: 3}
-  m_PrefabInstance: {fileID: 4250433283657557737}
-  m_PrefabAsset: {fileID: 0}
---- !u!198 &8561772542074456398 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 5489065850234040231, guid: a2cb793cc5f3bdf408a0b84141661a34, type: 3}
   m_PrefabInstance: {fileID: 4250433283657557737}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &4280803503698131398

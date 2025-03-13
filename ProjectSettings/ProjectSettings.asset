@@ -163,6 +163,7 @@ PlayerSettings:
   androidMaxAspectRatio: 2.1
   applicationIdentifier:
     Android: com.DefaultCompany.RealityEditng20
+    Standalone: com.DefaultCompany.RealityEditng2.0
   buildNumber:
     Standalone: 0
     VisionOS: 0
@@ -841,7 +842,7 @@ PlayerSettings:
   webGLPowerPreference: 2
   scriptingDefineSymbols:
     Android: NORMCORE;AMPLIFY_SHADER_EDITOR
-    Standalone: NORMCORE
+    Standalone: NORMCORE;AMPLIFY_SHADER_EDITOR;FUSION_LOGLEVEL_INFO;FUSION_WEAVER;FUSION2
   additionalCompilerArguments: {}
   platformArchitecture: {}
   scriptingBackend:

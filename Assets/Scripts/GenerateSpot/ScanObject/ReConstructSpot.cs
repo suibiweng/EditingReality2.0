@@ -30,10 +30,6 @@ public class ReConstructSpot : MonoBehaviour
     public Slider TransparentAdjustment;
 
     
-    
-
-
-
     public ToggleGroup PromptModes;
     
     public PromptType promptType;
