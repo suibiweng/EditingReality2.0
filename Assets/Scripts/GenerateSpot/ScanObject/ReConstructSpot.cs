@@ -50,6 +50,8 @@ public class ReConstructSpot : MonoBehaviour
 
   public DrawingSystem drawingSystem;
 
+  public ParticleSystem LodingEffect;
+
    
 
     void Start()
@@ -61,10 +63,10 @@ public class ReConstructSpot : MonoBehaviour
         DownloadURL=manager.ServerURL;
         UploadURL=manager.ServerURL;
         commandURL=manager.ServerURL;
-   //     DownloadURL+=":"+manager.downloadPort+"/";
-        DownloadURL+=":"+manager.Port+"/download";
-        UploadURL+=":"+manager.Port+"/upload";
-        commandURL+=":"+manager.Port+"/command";
+        DownloadURL+=":"+manager.downloadPortPort+"/";
+        //DownloadURL+=":"+manager.Port+"/download";
+        UploadURL+=":"+manager.UploadPort+"/upload";
+        commandURL+=":"+manager.UploadPort+"/command";
         _grabbable.WhenPointerEventRaised += HandlePointerEventRaised;
         
     }
@@ -121,6 +123,12 @@ public class ReConstructSpot : MonoBehaviour
 
         }
 
+        if(Input.GetKeyDown(KeyCode.F4)){
+
+           fast3DFunctions.ChangeMaterial(commandURL,"202503062014259f46ab33","Turn it into Gold");
+
+        }
+
 
         if(Input.GetKeyDown(KeyCode.C)){
 
@@ -133,7 +141,7 @@ public class ReConstructSpot : MonoBehaviour
 
         if(OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger)){
 
-            StartGeneration();
+         //   StartGeneration();
 
         }
 
@@ -272,6 +280,7 @@ Vector2 ObjectScreenPosition()
 bool Capturing=false;
 
     public void StartGeneration(){
+        LodingEffect.Play();
 
         if(!isselsected) return;
         ClearAllChildren();
@@ -291,7 +300,7 @@ bool Capturing=false;
 
         public void modifywithPrompt(){
 
-
+LodingEffect.Play();
 
             if(!isselsected) return;
          ClearAllChildren();
@@ -323,7 +332,7 @@ bool Capturing=false;
         Vector2 TargetPos =ObjectScreenPosition();
         fast3DFunctions.ToggleCullingMask();
         yield return new WaitForSeconds(0.3f);
-       fast3DFunctions.ModifyCapture(UploadURL,URLID+".png",TargetPos,URLID);
+        fast3DFunctions.ModifyCapture(UploadURL,URLID+"_Modify.png",TargetPos,URLID);
         
         yield return new WaitForSeconds(0.3f);
         fast3DFunctions.UploadMask(UploadURL,URLID+"_Mask.png",prompt,TargetPos,URLID); 
@@ -450,6 +459,9 @@ bool Capturing=false;
             FileCheck=null;
 
             downloadModel(url, Target);
+
+
+            LodingEffect.Stop();
 
 
 

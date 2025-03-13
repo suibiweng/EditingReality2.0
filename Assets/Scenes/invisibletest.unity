@@ -3571,7 +3571,8 @@ MonoBehaviour:
   LeftHand: {fileID: 1905771714}
   RightHand: {fileID: 1405592736}
   PlayerCamera: {fileID: 1600638231}
-  Port: 5000
+  UploadPort: 
+  downloadPortPort: 
   ServerURL: http://10.0.0.125
   ReConSpot: {fileID: 7490433459993616577, guid: 9daf14e4c1dbec94b97c12973356ba01, type: 3}
   SceneSaverTest: {fileID: 0}
@@ -9489,6 +9490,10 @@ PrefabInstance:
     - target: {fileID: 7490433459993616577, guid: 9daf14e4c1dbec94b97c12973356ba01, type: 3}
       propertyPath: m_Name
       value: ReConstructSpot (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7490433459993616577, guid: 9daf14e4c1dbec94b97c12973356ba01, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8994061789686754925, guid: 9daf14e4c1dbec94b97c12973356ba01, type: 3}
       propertyPath: m_LocalPosition.x
@@ -18782,17 +18787,128 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!114 &2035923064 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 693655113656585499, guid: 9ff25fcb1ea554c4fbe9b58ac9ec8997, type: 3}
-  m_PrefabInstance: {fileID: 474520284950947301}
+--- !u!1 &2035923060
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2035923065}
+  - component: {fileID: 2035923064}
+  m_Layer: 0
+  m_Name: Screen Capture Texture Manager (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2035923064
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2035923060}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 43f60f6cd21f71145a84a766991fb789, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  startScreenCaptureOnStart: 0
+  flipTextureOnGPU: 1
+  textureSize: {x: 1024, y: 1024}
+  onTextureInitialized:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6790103975648567973}
+        m_TargetAssemblyTypeName: UnityEngine.UI.RawImage, UnityEngine.UI
+        m_MethodName: set_texture
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 325633728}
+        m_TargetAssemblyTypeName: Fast3dFunctions, Assembly-CSharp
+        m_MethodName: UpdateTexture
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onStarted:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 972760578601453735}
+        m_TargetAssemblyTypeName: UnityEngine.UI.Text, UnityEngine.UI
+        m_MethodName: set_text
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Running!
+          m_BoolArgument: 0
+        m_CallState: 2
+  onPermissionDenied:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 972760578601453735}
+        m_TargetAssemblyTypeName: UnityEngine.UI.Text, UnityEngine.UI
+        m_MethodName: set_text
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Permission declined :(
+          m_BoolArgument: 0
+        m_CallState: 2
+  onStopped:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 972760578601453735}
+        m_TargetAssemblyTypeName: UnityEngine.UI.Text, UnityEngine.UI
+        m_MethodName: set_text
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Stopped
+          m_BoolArgument: 0
+        m_CallState: 2
+  onNewFrame:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!4 &2035923065
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2035923060}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &2042827851 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6034830126142481926, guid: 314f6e1da20902f4ba50509fa6eb8fa8, type: 3}
@@ -21096,83 +21212,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!1001 &474520284950947301
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 693655113656585499, guid: 9ff25fcb1ea554c4fbe9b58ac9ec8997, type: 3}
-      propertyPath: onStarted.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 972760578601453735}
-    - target: {fileID: 693655113656585499, guid: 9ff25fcb1ea554c4fbe9b58ac9ec8997, type: 3}
-      propertyPath: onStopped.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 972760578601453735}
-    - target: {fileID: 693655113656585499, guid: 9ff25fcb1ea554c4fbe9b58ac9ec8997, type: 3}
-      propertyPath: onPermissionDenied.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 972760578601453735}
-    - target: {fileID: 693655113656585499, guid: 9ff25fcb1ea554c4fbe9b58ac9ec8997, type: 3}
-      propertyPath: onTextureInitialized.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 6790103975648567973}
-    - target: {fileID: 693655113656585499, guid: 9ff25fcb1ea554c4fbe9b58ac9ec8997, type: 3}
-      propertyPath: onTextureInitialized.m_PersistentCalls.m_Calls.Array.data[1].m_Target
-      value: 
-      objectReference: {fileID: 325633728}
-    - target: {fileID: 826323161108513299, guid: 9ff25fcb1ea554c4fbe9b58ac9ec8997, type: 3}
-      propertyPath: m_Name
-      value: Screen Capture Texture Manager (1)
-      objectReference: {fileID: 0}
-    - target: {fileID: 6853803396351481643, guid: 9ff25fcb1ea554c4fbe9b58ac9ec8997, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6853803396351481643, guid: 9ff25fcb1ea554c4fbe9b58ac9ec8997, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6853803396351481643, guid: 9ff25fcb1ea554c4fbe9b58ac9ec8997, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6853803396351481643, guid: 9ff25fcb1ea554c4fbe9b58ac9ec8997, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6853803396351481643, guid: 9ff25fcb1ea554c4fbe9b58ac9ec8997, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6853803396351481643, guid: 9ff25fcb1ea554c4fbe9b58ac9ec8997, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6853803396351481643, guid: 9ff25fcb1ea554c4fbe9b58ac9ec8997, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6853803396351481643, guid: 9ff25fcb1ea554c4fbe9b58ac9ec8997, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6853803396351481643, guid: 9ff25fcb1ea554c4fbe9b58ac9ec8997, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6853803396351481643, guid: 9ff25fcb1ea554c4fbe9b58ac9ec8997, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 9ff25fcb1ea554c4fbe9b58ac9ec8997, type: 3}
 --- !u!224 &647858921754202855
 RectTransform:
   m_ObjectHideFlags: 0
@@ -21845,7 +21884,7 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 325633727}
-  - {fileID: 474520284950947301}
+  - {fileID: 2035923065}
   - {fileID: 107950141}
   - {fileID: 1840003859}
   - {fileID: 1969340928}
