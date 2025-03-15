@@ -28,7 +28,7 @@ public class RealityEditorManager : MonoBehaviour
     public string VoiceToPrompt;
     
     //photon things
-    private NetworkRunner _runner;
+    public NetworkRunner _runner;
         public bool isOnline; 
 
 
@@ -40,6 +40,18 @@ public class RealityEditorManager : MonoBehaviour
         // osc=FindObjectOfType<OSC>();   
 
         // ServerURL+=":"+downloadPort+"/";
+
+        // _runner = FindObjectOfType<NetworkRunner>();/
+        StartCoroutine(FindNetworkRunner());
+
+        if (_runner == null)
+        {
+            Debug.LogError("NetworkRunner not found in the scene. Please add it to the scene.");
+        }
+        else
+        {
+            Debug.Log("NetworkRunner found in the scene.");
+        }
      
      
      
@@ -53,6 +65,27 @@ public class RealityEditorManager : MonoBehaviour
 
         
     }
+
+    
+private IEnumerator FindNetworkRunner()
+{
+    bool foundRunner = false; 
+    while (!foundRunner)
+    {
+        foreach (NetworkRunner item in FindObjectsOfType<NetworkRunner>())
+        {
+            Debug.Log("Testing NetworkRunner found in the scene.");
+            if (item.IsRunning)
+            {
+                _runner = item;
+                foundRunner = true;
+                break;
+            }
+        }
+        yield return null; // Wait for next frame
+    }
+    
+}
 
 
     public void updateSelected(string IDurl)

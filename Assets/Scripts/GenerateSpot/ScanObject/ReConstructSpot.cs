@@ -10,6 +10,7 @@ using DimBoxes;
 using Oculus.Interaction;
 using Klak.Ndi.Interop;
 using System.Drawing;
+using Fusion;
 
 public enum PromptType{
     DreamMesh,
@@ -86,8 +87,18 @@ public class ReConstructSpot : MonoBehaviour
 
    public List<GameObject> ObjectsVersion ;
 
+    private NetworkRunner _runner;
+    private NetworkObject _networkObject;
+    private PhotonDataSync _photonDataSync;
+    private GenerateSpotRPC _generateSpotRPC;
+
+    private string oldPrompt;   
+
+   
+
     void Start()
     {
+        _runner =FindObjectOfType<NetworkRunner>();
 
         ObjectsVersion= new List<GameObject>();
 
@@ -107,6 +118,11 @@ public class ReConstructSpot : MonoBehaviour
         commandURL+=":"+manager.Port+"/command";
         _grabbable.WhenPointerEventRaised += HandlePointerEventRaised;
          Version=0;
+
+
+        _networkObject = GetComponent<NetworkObject>();
+        _photonDataSync = GetComponent<PhotonDataSync>();
+        _generateSpotRPC = GetComponent<GenerateSpotRPC>(); 
     }
 
 
@@ -334,16 +350,70 @@ public class ReConstructSpot : MonoBehaviour
           Target.transform.localScale=new Vector3(1f+SizeAdjustment.value,1f+SizeAdjustment.value,1f+SizeAdjustment.value);
 
 
-
-
-
-
-
-
-
     }
 
 
+
+[ContextMenu("Confirm Generation")]
+    private void confirmGenFromEditor()
+    {
+        // ConfirmGeneration();   //make sure to reimplement this for RE2.0
+        _generateSpotRPC.CallConfirmGenerationRPC();
+    }
+    
+    
+    [ContextMenu("Request ownership")]
+    private void takeOwnership()
+    {
+        StartCoroutine(GimmeYoAuthority()); 
+    }
+
+    IEnumerator GimmeYoAuthority()
+    {
+        while (!_networkObject.HasInputAuthority || !_networkObject.HasStateAuthority)
+        {
+            if (!_networkObject.HasStateAuthority)
+            {
+                _networkObject.RequestStateAuthority();
+                yield return 0.5f;
+            }
+            else
+            {
+                _networkObject.AssignInputAuthority(_runner.LocalPlayer);
+                yield return 0.5f;
+            }
+             
+        }
+    }
+    
+    public void RPCGenrateModel()
+    {
+        
+        // ChecktheFile =  StartCoroutine(CheckURLPeriodically(DownloadURL + URLID + "_ShapE.zip"));
+        StartCoroutine(CheckURLPeriodically(DownloadURL + URLID + "_ShapE.zip"));
+        // if(luaMonoBehavior!=null) luaMonoBehavior.StartFetchingCode(downloadURL, URLID);  //dont need this for RE2.0
+        loadingParticles.Play();
+        // SmoothCubeRenderer.enabled = false;
+        // Outlinebox.wire_renderer = false;
+    }
+
+    
+    public void GenrateModelPrompt(string prompt)
+    {
+        // manager.promtGenerateModel(Id, prompt, URLID); //this function was commented out in the magager script for RE2.0, so Yeet this line?
+        loadingParticles.Play();
+        // SmoothCubeRenderer.enabled = false;
+        // Outlinebox.wire_renderer = false;
+
+        // DremmeshPrompt=Prompt;
+
+        _generateSpotRPC.CallConfirmGenerationRPC();
+
+        // PreViewQuad.SetActive(true);
+        // loadingIcon.SetActive(true);
+        // Prompt = "";
+
+    }
 
 
     
@@ -352,6 +422,11 @@ public class ReConstructSpot : MonoBehaviour
     void Update()
     {
 
+        if (prompt != oldPrompt)
+        {
+            _photonDataSync.UpdatePrompt(prompt);  // just realized that we sync the URLid in the manager. 
+        }
+        oldPrompt = prompt; 
 
 
         TransformUpdate();
@@ -458,7 +533,11 @@ public class ReConstructSpot : MonoBehaviour
 
         manager.updateSelected( URLID);
         isselsected = true;
-       
+       if (_networkObject.HasStateAuthority == false)
+        {
+            takeOwnership(); //this is sawyers function that is taking authority and nothing is stopping it!!!
+
+        }    
 
     }
 
@@ -657,8 +736,23 @@ public void DrawingToModel(){
     public void Delete(){
 
       //  manager.RemoveReConSpot(URLID);
+      deletespot(); //This Needs to be tested
+    }
 
-
+    
+    public void deletespot()
+    {
+        
+        if (_runner == null || !_runner.IsRunning)
+        {
+            Debug.LogError("NetworkRunner is not running. Cannot destroy network object.");
+            return;
+        }
+        //might need to make this an RPC, since it's getting added to other peoples dictionaries when they grab this cube
+        //But it isn't being removed from their dictionary here. Not removing it from the dictionary is currently breaking things
+        _generateSpotRPC.CallDeleteSpotRPC(); //This Needs to be tested
+        _runner.Despawn(GetComponent<NetworkObject>());
+        Destroy(gameObject);
     }
 
 

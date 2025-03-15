@@ -17844,6 +17844,8 @@ GameObject:
   - component: {fileID: 7587970823762102735}
   - component: {fileID: 2795828392568651090}
   - component: {fileID: 1338798954650365318}
+  - component: {fileID: -2341871527190040606}
+  - component: {fileID: -3026949096752575039}
   m_Layer: 0
   m_Name: ReConstructSpotPhoton
   m_TagString: Untagged
@@ -18055,13 +18057,15 @@ MonoBehaviour:
   m_Script: {fileID: -1552182283, guid: e725a070cec140c4caffb81624c8c787, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SortKey: 1625599928
+  SortKey: 2818737080
   ObjectInterest: 1
-  Flags: 524289
+  Flags: 786433
   NestedObjects: []
   NetworkedBehaviours:
   - {fileID: 2795828392568651090}
   - {fileID: 1338798954650365318}
+  - {fileID: -2341871527190040606}
+  - {fileID: -3026949096752575039}
   ForceRemoteRenderTimeframe: 0
 --- !u!114 &2795828392568651090
 MonoBehaviour:
@@ -18092,6 +18096,32 @@ MonoBehaviour:
   SyncParent: 0
   _autoAOIOverride: 1
   DisableSharedModeInterpolation: 1
+--- !u!114 &-2341871527190040606
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7490433459993616577}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 584207a3452894843aff146b2f7e01e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &-3026949096752575039
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7490433459993616577}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1bd8732515eced499a0a7e918ba7fbf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _NetworkedUrlID: 
+  _NetworkedPrompt: 
 --- !u!1 &7625156112618637544
 GameObject:
   m_ObjectHideFlags: 0
